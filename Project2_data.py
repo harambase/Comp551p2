@@ -28,11 +28,9 @@ def read_data(path):
 	files= os.listdir(path)
 	data = []
 	files.sort()
-	i = 0
+
 	for file in files: 
-		if i > 100:
-			break
-		i = i + 1
+
 		if not os.path.isdir(file): 
 			with open(path+'/'+file, 'r') as f:
 				data.append(f.read())
