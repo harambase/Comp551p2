@@ -97,7 +97,6 @@ def decision_tree(dataset):
                   'clf__max_features': ['auto', 'sqrt', 'log2']}
 
     n_iter_search = 100
-    print(len(dataset[0]))
     random_search = GridSearchCV(vect_and_clf, param_grid=param_dist, cv=5)
     start = time()
     random_search.fit(dataset[0], dataset[2])
@@ -110,15 +109,19 @@ def decision_tree(dataset):
 
 
 def svm(dataset):
-    vect_and_clf = Pipeline([('vect', TfidfVectorizer()), ('clf', LinearSVC(random_state=0, tol=1e-5))])
+    vect_and_clf = Pipeline([('vect', TfidfVectorizer()), ('clf', LinearSVC(random_state=0))])
 
     param_dist = {'clf__dual': [True, False],
-                  'clf__loss': ['hinge', 'squared_hinge']}
+                  'clf__loss': ['hinge', 'squared_hinge'],
+                  'clf__C': np.power(10, np.arange(-2, 2, dtype=float)),
+                  'clf__tol': np.power(10, np.arange(-10, -3, dtype=float)),
+                  'clf__fit_intercept': [True, False]
+                  }
 
     n_iter_search = 20
-    random_search = RandomizedSearchCV(vect_and_clf, param_distributions=param_dist, n_iter=n_iter_search, cv=5)
+    #random_search = RandomizedSearchCV(vect_and_clf, param_distributions=param_dist, n_iter=n_iter_search, cv=5)
     # print(len(dataset[0]))
-    # random_search = GridSearchCV(vect_and_clf, param_grid=param_dist, cv=5)
+    random_search = GridSearchCV(vect_and_clf, param_grid=param_dist, cv=5)
     start = time()
     random_search.fit(dataset[0], dataset[2])
     print(random_search.score(dataset[1], dataset[3]))
@@ -130,6 +133,8 @@ def svm(dataset):
 
 
 if __name__ == '__main__':
+
     dataset = get_dataset()
-    #svm(dataset)
+
+    svm(dataset)
     decision_tree(dataset)
