@@ -55,8 +55,6 @@ def get_dataset():
 
 
 def svm(dataset):
-    X = dataset[0]
-    y = dataset[2]
     clf = LinearSVC(random_state=0, tol=1e-5)
 
     # specify parameters and distributions to sample from
@@ -70,7 +68,7 @@ def svm(dataset):
                                        n_iter=n_iter_search)
 
     start = time()
-    random_search.fit(X, y)
+    random_search.fit(dataset[0], dataset[2])
     print(random_search.score(dataset[1], dataset[3]))
     print("RandomizedSearchCV took %.2f seconds for %d candidates"
           " parameter settings." % ((time() - start), n_iter_search))
