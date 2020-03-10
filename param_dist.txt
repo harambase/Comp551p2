@@ -1,16 +1,44 @@
-AdaBoost:
+Random Search：
+n_iter_search = 50 or 100 or 200
+random_search = RandomizedSearchCV(vect_and_clf, param_distributions=param_dist, n_iter=n_iter_search, cv=5, n_jobs=4) 
+
+SVM:
+param_dist = {'clf__dual': [True, False],
+              'clf__loss': ['hinge', 'squared_hinge'],
+              'clf__C': loguniform(1e-3, 1e3),
+              'clf__tol': loguniform(1e-11, 1e-4),
+              'clf__fit_intercept': [True, False]}
+              
+AdaBoost:              
 param_dist = {'clf__learning_rate':  stats.uniform(0, 1),
-              'clf__n_estimators': np.arange(10,400,10),
+              'clf__n_estimators': stats.uniform(10, 200),
+              'clf__algorithm': ['SAMME', 'SAMME.R']}
+
+
+
+
+
+
+Grid Search：
+random_search = GridSearchCV(vect_and_clf, param_grid=param_dist, cv=5, n_jobs = 4)
+AdaBoost:
+param_dist = {'clf__learning_rate':  np.linspace(0,1,num = 11, dtype=float),
+              'clf__n_estimators': np.arange(10,200,step = 10, dtype=float),
               'clf__algorithm': ['SAMME', 'SAMME.R']}
 
 SVM:
 param_dist = {'clf__dual': [True, False],
               'clf__loss': ['hinge', 'squared_hinge'],
-              'clf__C': np.power(10, np.arange(-3, 3, dtype=float)),
-              'clf__tol': np.power(10, np.arange(-11, -4, dtype=float)),
+              'clf__C': np.power(10, np.linspace(-3, 3, num = 7,dtype=float)),
+              'clf__tol': np.power(10, np.linspace(-11, -4, num = 8, dtype=float)),
               'clf__fit_intercept': [True, False]}
 
 Decision Tree:
 param_dist = {'clf__criterion': ['gini', 'entropy'],
               'clf__splitter': ['best', 'random'],
               'clf__max_features': ['auto', 'sqrt', 'log2', 'none'],}
+              
+              
+              
+              
+
