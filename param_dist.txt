@@ -11,8 +11,9 @@ param_dist = {'clf__dual': [True, False],
               
 AdaBoost:              
 param_dist = {'clf__learning_rate':  stats.uniform(0, 1),
-              'clf__n_estimators': stats.uniform(10, 200),
-              'clf__algorithm': ['SAMME', 'SAMME.R']}
+              'clf__n_estimators': stats.randint(10,200),
+              'clf__algorithm': ['SAMME', 'SAMME.R'],
+              'clf__base_estimator': [None, LinearSVC(), LogisticRegression(), MultinomialNB()]}
 
 LR:
 param_dist = {'clf__penalty': ['l1', 'l2', 'elasticnet', 'none'],
@@ -21,7 +22,7 @@ param_dist = {'clf__penalty': ['l1', 'l2', 'elasticnet', 'none'],
               'clf__tol': loguniform(1e-11, 1e-4),
               'clf__fit_intercept': [True, False],
               'clf__solver': ['newton-cg', 'lbfgs', 'liblinear', 'sag', 'saga'],
-              'clf__max_iter': stats.uniform(50,200),
+              'clf__max_iter': stats.randint(50,200),
               'clf__warm_start': [True, False],
               'clf__multi_class': ['auto', 'ovr', 'multinomial'],
               'clf__l1_ratio': stats.uniform(0,1)}
@@ -32,7 +33,7 @@ Grid Search：
 random_search = GridSearchCV(vect_and_clf, param_grid=param_dist, cv=5, n_jobs = 4)
 AdaBoost:
 param_dist = {'clf__learning_rate':  np.linspace(0,1,num = 11, dtype=float),
-              'clf__n_estimators': np.arange(10,200,step = 10, dtype=float),
+              'clf__n_estimators': np.arange(10,200,step = 10, dtype=int),
               'clf__algorithm': ['SAMME', 'SAMME.R']}
 
 SVM:
@@ -54,7 +55,7 @@ param_dist = {'clf__penalty': ['l1', 'l2', 'elasticnet', 'none'],
               'clf__tol': np.power(10, np.linspace(-11, -4, num = 8, dtype=float)),
               'clf__fit_intercept': [True, False],
               'clf__solver': ['newton-cg', 'lbfgs', 'liblinear', 'sag', 'saga'],
-              'clf__max_iter': np.arange(50,200,step = 10, dtype=float),
+              'clf__max_iter': np.arange(50,200,step = 10, dtype = int),
               'clf__warm_start': [True, False],
               'clf__multi_class': ['auto', 'ovr', 'multinomial'],
               'clf__l1_ratio': np.linspace(0,1,num = 11, dtype=float)}
