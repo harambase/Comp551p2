@@ -35,7 +35,8 @@ def get_dataset():
         x = ''
         for j in range(len(word_list)):
             if word_list[j] not in stop_words:
-                x = x + word_list[j] + ' '
+                if len(word_list[j])<20:
+                    x = x + word_list[j] + ' '
         X.append(x)
         y.append(newsgroups_train.target[i])
 
@@ -50,7 +51,8 @@ def get_dataset():
         x = ''
         for j in range(len(word_list_test)):
             if word_list_test[j] not in stop_words:
-                x = x + word_list_test[j] + ' '
+                if len(word_list_test[j])<20:
+                    x = x + word_list_test[j] + ' '
         X_test.append(x)
         y_test.append(newsgroups_test.target[i])
 
