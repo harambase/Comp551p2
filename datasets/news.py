@@ -23,11 +23,8 @@ def get_dataset():
     y = []
     stemmer = PorterStemmer()
     stop_words = list(stopwords.words('english'))
-    i = 0
     for i in range(len(newsgroups_train.data)):
-        #if i>100:
-          #  break
-        i = i+1
+
         #newsgroups_train.data[i] = re.sub(r'[^A-z ]', '', newsgroups_train.data[i])
         word_list = word_tokenize(newsgroups_train.data[i])
         for j in range(len(word_list)):
