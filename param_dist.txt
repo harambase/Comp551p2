@@ -1,0 +1,4 @@
+AdaBoost:
+param_dist = {'clf__learning_rate':  stats.uniform(0, 1),
+              'clf__n_estimators': np.arange(10,400,10),
+              'clf__algorithm': ['SAMME', 'SAMME.R']}
