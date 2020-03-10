@@ -14,8 +14,17 @@ param_dist = {'clf__learning_rate':  stats.uniform(0, 1),
               'clf__n_estimators': stats.uniform(10, 200),
               'clf__algorithm': ['SAMME', 'SAMME.R']}
 
-
-
+LR:
+param_dist = = {'clf__penalty': [‘l1’, ‘l2’, ‘elasticnet’, ‘none’]
+              'clf__dual': [True, False],
+              'clf__C': loguniform(1e-3, 1e3),
+              'clf__tol': loguniform(1e-11, 1e-4),
+              'clf__fit_intercept': [True, False],
+              'clf__solver': [‘newton-cg’, ‘lbfgs’, ‘liblinear’, ‘sag’, ‘saga’],
+              'clf__max_iter': stats.uniform(50,200),
+              'clf__warm_start': [True, False],
+              'multi_class': [‘auto’, ‘ovr’, ‘multinomial’],
+              'l1_ratio': stats.uniform(0,1)}
 
 
 
