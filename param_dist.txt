@@ -46,7 +46,7 @@ param_dist = {'clf__dual': [True, False],
 Decision Tree:
 param_dist = {'clf__criterion': ['gini', 'entropy'],
               'clf__splitter': ['best', 'random'],
-              'clf__max_features': ['auto', 'sqrt', 'log2', 'none'],}
+              'clf__max_features': ['auto', 'sqrt', 'log2', 'none']}
 
 lr:
 param_dist = {'clf__penalty': ['l1', 'l2', 'elasticnet', 'none'],
