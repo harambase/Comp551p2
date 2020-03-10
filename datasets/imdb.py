@@ -70,7 +70,8 @@ def get_dataset():
         train_data[i] = ''
         for j in range(len(word_list)):
             if word_list[j] not in stop_words:
-                train_data[i] = train_data[i] + word_list[j] + ' '
+                if len(word_list[j])<20:
+                    train_data[i] = train_data[i] + word_list[j] + ' '
 
     for i in range(len(test_data)):
         test_data[i] = re.sub(r'[^A-z ]', '', test_data[i])
@@ -80,7 +81,8 @@ def get_dataset():
         test_data[i] = ''
         for j in range(len(word_list)):
             if word_list[j] not in stop_words:
-                test_data[i] = test_data[i] + word_list[j] + ' '
+                if len(word_list[j])<20:
+                    test_data[i] = test_data[i] + word_list[j] + ' '
 
     return train_data, test_data, train_label, test_label
 
