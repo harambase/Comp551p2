@@ -36,13 +36,38 @@ param_dist = {'clf__criterion': ['gini', 'entropy'],
               'clf__max_leaf_nodes': [None]+ np.array(np.power(10, np.arange(1,5,step =0.5)),dtype = int).tolist(),
               'clf__min_impurity_decrease': [0.0]+np.array(np.power(10, np.arange(-10,-4,step =0.5)),dtype =float).tolist()}
 
+Random Forest:
+param_dist = {'clf__n_estimators': np.array(np.power(10, np.arange(1,3,step =0.1)),dtype = int),
+              'clf__criterion': ['gini', 'entropy'],
+              'clf__max_depth': np.arange(2,50, dtype = int).tolist()+[None],
+              'clf__min_samples_split': loguniform(1e-4, 1e-1),
+              'clf__min_samples_leaf': stats.randint(1,200),
+              'clf__max_features': np.linspace(0.01,1,num = 10, dtype=float).tolist()+['auto', 'sqrt', 'log2', None],
+              'clf__max_leaf_nodes': [None]+ np.array(np.power(10, np.arange(1,5,step =0.5)),dtype = int).tolist(),
+              'clf__min_impurity_decrease': [0.0]+np.array(np.power(10, np.arange(-10,-4,step =0.5)),dtype = float).tolist(),
+              'clf__bootstrap': [True, False],
+              'clf__oob_score': [True, False],
+              'clf__warm_start':[True, False],
+              'clf__max_samples': stats.uniform(0,1),
+              'clf__class_weight': [None, 'balanced', 'balanced_subsample'],
+              'clf__verbose': [True, False],
+              'clf__min_weight_fraction_leaf': loguniform(1e-4, 1e-1)}
+
+
+
+
+
+
+
+
 
 Grid Search：
 random_search = GridSearchCV(vect_and_clf, param_grid=param_dist, cv=5, n_jobs = 4)
 AdaBoost:
 param_dist = {'clf__learning_rate':  np.linspace(0,1,num = 11, dtype=float),
               'clf__n_estimators': np.arange(10,200,step = 10, dtype=int),
-              'clf__algorithm': ['SAMME', 'SAMME.R']}
+              'clf__algorithm': ['SAMME', 'SAMME.R'],
+              'clf__base_estimator': [None, LinearSVC(), LogisticRegression(), MultinomialNB()]}
 
 SVM:
 param_dist = {'clf__dual': [True, False],
@@ -75,6 +100,23 @@ param_dist = {'clf__penalty': ['l1', 'l2', 'elasticnet', 'none'],
               'clf__multi_class': ['auto', 'ovr', 'multinomial'],
               'clf__l1_ratio': np.linspace(0,1,num = 11, dtype=float)}
 
+
+Random Forest:
+param_dist = {'clf__n_estimators': np.array(np.power(10, np.arange(1,3,step =0.1)),dtype = int),
+              'clf__criterion': ['gini', 'entropy'],
+              'clf__max_depth': np.arange(2,50, dtype = int).tolist()+[None],
+              'clf__min_samples_split': np.power(10, np.linspace(-4, -1, num = 10, dtype=float)),
+              'clf__min_samples_leaf': np.arange(1,200,dtype= int),
+              'clf__max_features': np.linspace(0.01,1,num = 10, dtype=float).tolist()+['auto', 'sqrt', 'log2', None],
+              'clf__max_leaf_nodes': [None]+ np.array(np.power(10, np.arange(1,5,step =0.5)),dtype = int).tolist(),
+              'clf__min_impurity_decrease': [0.0]+np.array(np.power(10, np.arange(-10,-4,step =0.5)),dtype = float).tolist(),
+              'clf__bootstrap': [True, False],
+              'clf__oob_score': [True, False],
+              'clf__warm_start':[True, False],
+              'clf__max_samples': np.linspace(0,1,num=10,dtype=float),
+              'clf__class_weight': [None, 'balanced', 'balanced_subsample'],
+              'clf__verbose': [True, False],
+              'clf__min_weight_fraction_leaf': np.power(10, np.linspace(-4, -1, num = 10, dtype=float))}
               
               
               
