@@ -26,7 +26,15 @@ param_dist = {'clf__penalty': ['l1', 'l2', 'elasticnet', 'none'],
               'clf__warm_start': [True, False],
               'clf__multi_class': ['auto', 'ovr', 'multinomial'],
               'clf__l1_ratio': stats.uniform(0,1)}
-
+Decision Tree:
+param_dist = {'clf__criterion': ['gini', 'entropy'],
+              'clf__splitter': ['best', 'random'],
+              'clf__max_depth': np.arange(2,50, dtype = int).tolist()+[None],
+              'clf__min_samples_split': loguniform(1e-4, 1e-1),
+              'clf__min_samples_leaf': stats.randint(1,200),
+              'clf__max_features': np.linspace(0.01,1,num = 10, dtype=float).tolist()+['auto', 'sqrt', 'log2', None],
+              'clf__max_leaf_nodes': [None]+ np.array(np.power(10, np.arange(1,5,step =0.5)),dtype = int).tolist(),
+              'clf__min_impurity_decrease': [0.0]+np.array(np.power(10, np.arange(-10,-4,step =0.5)),dtype =float).tolist()}
 
 
 Grid Search：
@@ -46,8 +54,15 @@ param_dist = {'clf__dual': [True, False],
 Decision Tree:
 param_dist = {'clf__criterion': ['gini', 'entropy'],
               'clf__splitter': ['best', 'random'],
-              'clf__max_features': ['auto', 'sqrt', 'log2', 'none']}
-
+              'clf__max_depth': np.arange(2,50, dtype = int).tolist()+[None],
+              'clf__min_samples_split': np.power(10, np.linspace(-4, -1, num = 10,dtype=float)),
+              'clf__min_samples_leaf': np.arange(1,200,dtype=int),
+              'clf__max_features': np.linspace(0.01,1,num = 10, dtype=float).tolist()+['auto', 'sqrt', 'log2', None],
+              'clf__max_leaf_nodes': [None]+ np.array(np.power(10, np.arange(1,5,step =0.5)),dtype = int).tolist(),
+              'clf__min_impurity_decrease': [0.0]+np.array(np.power(10, np.arange(-10,-4,step =0.5)),dtype =float).tolist()}
+              
+              
+              
 lr:
 param_dist = {'clf__penalty': ['l1', 'l2', 'elasticnet', 'none'],
               'clf__dual': [True, False],
