@@ -63,6 +63,22 @@ param_dist = {'clf__base_estimator': [None, LinearSVC(), LogisticRegression(), M
               'clf__bootstrap_features': [True, False],
               'clf__oob_score': [True, False],
               'clf__warm_start': [True, False]}
+              
+              
+Gradient Boosting:  
+param_dist = {'clf__loss': ['deviance', 'exponential'],
+              'clf__learning_rate': stats.uniform(0, 1),
+              'clf__n_estimators': loguniform(100, 1000),
+              'clf__subsample': stats.uniform(0, 1),
+              'clf__min_samples_split': loguniform(1e-4, 1e-1),
+              'clf__min_samples_leaf': stats.randint(1,200),
+              'clf__max_depth': stats.uniform(2,20),
+              'clf__min_impurity_decrease': [0.0]+np.array(np.power(10, np.arange(-10,-4,step =0.5)),dtype = float).tolist(),
+              'clf__max_features': np.linspace(0.01,1,num = 10, dtype=float).tolist()+['auto', 'sqrt', 'log2', None],
+              'clf__max_leaf_nodes': [None]+ (np.power(10, np.arange(1,4,step =0.5)).astype(np.int)).tolist(),
+              'clf__warm_start':[True, False],
+              'clf__tol': loguniform(1e-11, 1e-4)}
+
 
 
 
