@@ -1,0 +1,15 @@
+RandomizedSearchCV took 3456.41 seconds for 200 candidates parameter settings.accruracy = 0.876440Best Params = {'clf__algorithm': 'SAMME', 'clf__base_estimator': LogisticRegression(C=1.0, class_weight=None, dual=False, fit_intercept=True,
+                   intercept_scaling=1, l1_ratio=None, max_iter=100,
+                   multi_class='auto', n_jobs=None, penalty='l2',
+                   random_state=None, solver='lbfgs', tol=0.0001, verbose=0,
+                   warm_start=False), 'clf__learning_rate': 0.43112943031410134, 'clf__n_estimators': 316, 'vect__max_df': 0.8555555555555556, 'vect__min_df': 0.004640177746496906, 'vect__ngram_range': (1, 2), 'vect__stop_words': None, 'vect__token_pattern': '\\w{1,}'}
+
+RandomizedSearchCV took 3456.41 seconds for 200 candidates parameter settings.
+Model with rank: 1
+Mean validation score: 0.860 (std: 0.006)
+Parameters: {'clf__algorithm': 'SAMME', 'clf__base_estimator': LogisticRegression(C=1.0, class_weight=None, dual=False, fit_intercept=True,
+                   intercept_scaling=1, l1_ratio=None, max_iter=100,
+                   multi_class='auto', n_jobs=None, penalty='l2',
+                   random_state=None, solver='lbfgs', tol=0.0001, verbose=0,
+                   warm_start=False), 'clf__learning_rate': 0.43112943031410134, 'clf__n_estimators': 316, 'vect__max_df': 0.8555555555555556, 'vect__min_df': 0.004640177746496906, 'vect__ngram_range': (1, 2), 'vect__stop_words': None, 'vect__token_pattern': '\\w{1,}'}
+accruracy =  0.87644
