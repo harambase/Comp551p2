@@ -1,7 +1,7 @@
-from sklearn.datasets import fetch_20newsgroups
 from nltk.corpus import stopwords
-from nltk.tokenize import word_tokenize
 from nltk.stem import PorterStemmer
+from nltk.tokenize import word_tokenize
+from sklearn.datasets import fetch_20newsgroups
 
 
 def get_dataset():
@@ -24,7 +24,6 @@ def get_dataset():
                     x = x + word_list[j] + ' '
         X.append(x)
         y.append(newsgroups_train.target[i])
-
 
     for i in range(len(newsgroups_test.data)):
         # newsgroups_test.data[i] = re.sub(r'[^A-z ]', '', newsgroups_test.data[i])

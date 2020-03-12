@@ -1,19 +1,19 @@
+from time import time
+
+import news_data
 import numpy as np
+import scipy.stats as stats
+from sklearn.ensemble import AdaBoostClassifier
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import RandomizedSearchCV
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.pipeline import Pipeline
-import scipy.stats as stats
-from time import time
 from sklearn.svm import LinearSVC
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.utils.fixes import loguniform
-from sklearn.linear_model import LogisticRegression
-from sklearn.ensemble import AdaBoostClassifier
-from sklearn.ensemble import RandomForestClassifier
-import imdb
-import newsgroup
 
 
 def report(results, n_top=3, file=None):
@@ -72,9 +72,11 @@ def dt():
                   'clf__max_depth': np.arange(2, 50, dtype=int).tolist() + [None],
                   'clf__min_samples_split': loguniform(1e-4, 1e-1),
                   'clf__min_samples_leaf': stats.randint(1, 200),
-                  'clf__max_features': np.linspace(0.01, 1, num=10, dtype=float).tolist() + ['auto', 'sqrt', 'log2', None],
+                  'clf__max_features': np.linspace(0.01, 1, num=10, dtype=float).tolist() + ['auto', 'sqrt', 'log2',
+                                                                                             None],
                   'clf__max_leaf_nodes': [None] + np.array(np.power(10, np.arange(1, 4, step=0.5)), dtype=int).tolist(),
-                  'clf__min_impurity_decrease': [0.0] + np.array(np.power(10, np.arange(-10, -4, step=0.5)), dtype=float).tolist()}
+                  'clf__min_impurity_decrease': [0.0] + np.array(np.power(10, np.arange(-10, -4, step=0.5)),
+                                                                 dtype=float).tolist()}
 
     return vect_and_clf, param_dist
 
@@ -98,9 +100,11 @@ def forest():
                   'clf__max_depth': np.arange(2, 50, dtype=int).tolist() + [None],
                   'clf__min_samples_split': loguniform(1e-4, 1e-1),
                   'clf__min_samples_leaf': stats.randint(1, 200),
-                  'clf__max_features': np.linspace(0.01, 1, num=10, dtype=float).tolist() + ['auto', 'sqrt', 'log2', None],
+                  'clf__max_features': np.linspace(0.01, 1, num=10, dtype=float).tolist() + ['auto', 'sqrt', 'log2',
+                                                                                             None],
                   'clf__max_leaf_nodes': [None] + np.array(np.power(10, np.arange(1, 4, step=0.5)), dtype=int).tolist(),
-                  'clf__min_impurity_decrease': [0.0] + np.array(np.power(10, np.arange(-10, -4, step=0.5)), dtype=float).tolist(),
+                  'clf__min_impurity_decrease': [0.0] + np.array(np.power(10, np.arange(-10, -4, step=0.5)),
+                                                                 dtype=float).tolist(),
                   'clf__bootstrap': [True, False],
                   'clf__oob_score': [True, False],
                   'clf__warm_start': [True, False],
@@ -115,7 +119,8 @@ def forest():
 def run(model, vect_and_clf, param_dist, n_iter_search, dataset):
     f = open(model + str(time()) + ".txt", "w+")
 
-    random_search = RandomizedSearchCV(vect_and_clf, param_distributions=param_dist, n_iter=n_iter_search, cv=5, verbose=10)
+    random_search = RandomizedSearchCV(vect_and_clf, param_distributions=param_dist, n_iter=n_iter_search, cv=5,
+                                       verbose=10)
 
     train_data, test_data, train_label, test_label = dataset
     start = time()
@@ -130,11 +135,12 @@ def run(model, vect_and_clf, param_dist, n_iter_search, dataset):
     f.write('accruracy = %f' % accuracy_score(test_label, test_label_predict))
     f.close()
 
+
 if __name__ == '__main__':
     # print("read IMDB")
     # imdb_data = imdb.get_dataset()
     print("read NewsGroup")
-    news_data = newsgroup.get_dataset()
+    news_data = news_data.get_dataset()
     n_iter_search = 20
 
     # print("init SVM")
@@ -171,10 +177,3 @@ if __name__ == '__main__':
     run('forest', vect_and_clf, param_dist, n_iter_search, news_data)
     print("run forest on imdb")
     # run('forest', vect_and_clf, param_dist, n_iter_search, imdb_data)
-
-
-
-
-
-
-

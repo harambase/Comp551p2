@@ -1,8 +1,9 @@
-from nltk.corpus import stopwords
-from nltk.tokenize import word_tokenize
-from nltk.stem import PorterStemmer
-import re
 import os
+import re
+
+from nltk.corpus import stopwords
+from nltk.stem import PorterStemmer
+from nltk.tokenize import word_tokenize
 
 
 def read_data(path):
@@ -71,4 +72,3 @@ def get_dataset():
                     test_data[i] = test_data[i] + word_list[j] + ' '
 
     return train_data, test_data, train_label, test_label
-
